@@ -1,0 +1,24 @@
+.error {
+  margin-top: 20px;
+  color: coral;
+  font-size: 22px;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  margin-bottom: 50px;
+}
+
+.nav-list li {
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: #3f51b5;
+  font-size: 20px;
+  text-decoration: none;
+}
