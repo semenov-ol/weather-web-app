@@ -12,9 +12,18 @@ export interface Weather {
   base: string;
   dt: number;
   visibility: number;
-  timezone: number;
+  timezone: number | string;
   id: number;
   name?: string;
   cod: number;
   message: string;
+  current: {
+    temp: number;
+    weather: WeatherObject[];
+    sunrise: number;
+    sunset: number;
+    humidity: number;
+    pressure: number;
+    wind_speed: number;
+  };
 }

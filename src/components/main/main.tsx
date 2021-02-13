@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { Container, Button } from '@material-ui/core';
-import { Favorites } from '../favorites';
-
-import { Form } from '../form';
-import { CityCard } from '../city-card';
+import { Button, Container } from '@material-ui/core';
+import { useCallback, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
 import { state } from '../../store';
 import { Weather } from '../../types/weather';
+import { CityCard } from '../city-card';
+import { Favorites } from '../favorites';
+
+import { Form } from '../form';
 
 import './main.css';
 
@@ -23,9 +23,30 @@ export const Main = () => {
   }, []);
 
   const checkIfFavorite = useCallback(
-    () => Boolean(favorites?.filter((item) => JSON.parse(item).id === data?.id)?.length),
+    () =>
+      Boolean(
+        favorites?.filter((item) => {
+          const dataItem = JSON.parse(item);
+          return dataItem.id === data?.id || dataItem.id === data?.current?.weather[0].id;
+        })?.length
+      ),
     [favorites, data]
   );
+
+  const mappedData =
+    typeof data?.timezone === 'string'
+      ? {
+          name: data.timezone,
+          weather: [data.current.weather[0]],
+          main: { temp: data.current.temp, pressure: data.current.pressure, humidity: data.current.humidity },
+          wind: { speed: data.current.wind_speed },
+          sys: {
+            sunrise: data.current.sunrise,
+            sunset: data.current.sunset,
+          },
+          id: data.current.weather[0].id,
+        }
+      : data;
 
   return (
     <Container>
@@ -35,13 +56,17 @@ export const Main = () => {
             <ul className="nav-list">
               <li>
                 <Link to="/" className="nav-link">
-                  <Button  variant="contained" color="primary">Main</Button>
+                  <Button variant="contained" color="primary">
+                    Search
+                  </Button>
                 </Link>
               </li>
 
               <li>
                 <Link to="/favorite" className="nav-link">
-                  <Button  variant="contained" color="primary">Favorite</Button>
+                  <Button variant="contained" color="primary">
+                    Favorite
+                  </Button>
                 </Link>
               </li>
             </ul>
@@ -51,8 +76,8 @@ export const Main = () => {
           <Route exact path="/">
             <Form />
 
-            {data?.cod === 200 ? (
-              <CityCard data={data} isFavorite={checkIfFavorite()} />
+            {data?.cod === 200 || data?.current ? (
+              <CityCard data={mappedData} isFavorite={checkIfFavorite()} />
             ) : (
               <div className="error">{data?.message}</div>
             )}

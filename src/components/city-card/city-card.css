@@ -25,6 +25,10 @@
   font-size: 25px;
 }
 
+.temp {
+  font-size: 36px;
+}
+
 .additional-info {
   display: flex;
   flex-direction: row;

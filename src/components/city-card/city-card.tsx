@@ -1,13 +1,14 @@
 import { Avatar, Box, Button } from '@material-ui/core';
 import { FC, useMemo } from 'react';
 import { state, setFavorite, removeFromFavorite } from '../../store';
+import { GeoWeather } from '../../types/geo-weather';
 
 import { Weather } from '../../types/weather';
 
 import './city-card.css';
 
 interface CityCardProps {
-  data?: Weather;
+  data?: Weather | GeoWeather;
   isFavorite?: boolean;
 }
 
@@ -28,7 +29,7 @@ export const CityCard: FC<CityCardProps> = ({ data, isFavorite }) => {
   };
 
   return (
-    <Box style={{ margin: '40px' }}>
+    <Box style={{ margin: '40px auto', width: '70%' }}>
       {data && (
         <div className="city-card">
           <div className="main">
