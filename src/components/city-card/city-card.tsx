@@ -1,9 +1,8 @@
-import { Avatar, Box, Button } from '@material-ui/core';
 import { FC, useMemo } from 'react';
-import { state, setFavorite, removeFromFavorite } from '../../store';
-import { GeoWeather } from '../../types/geo-weather';
+import { Avatar, Box, Button } from '@material-ui/core';
 
-import { Weather } from '../../types/weather';
+import { GeoWeather, Weather } from '../../types';
+import { state, setFavorite, removeFromFavorite } from '../../store';
 
 import './city-card.css';
 

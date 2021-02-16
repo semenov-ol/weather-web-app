@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
+import { usePosition } from '../utils';
 import { WeatherApi } from '../../services';
 import { setFoundData, state } from '../../store';
-import { usePosition } from '../utils';
 
 import './form.css';
 
@@ -14,7 +14,7 @@ export const Form = () => {
   const { position } = usePosition();
 
   const fetchData = async (city: string) => {
-    const response = await api.getWether(city);
+    const response = await api.getWeather(city);
     state.dispatch(setFoundData(response));
   };
 

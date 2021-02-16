@@ -1,13 +1,12 @@
-import { Button, Container } from '@material-ui/core';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-
-import { state } from '../../store';
-import { Weather } from '../../types/weather';
-import { CityCard } from '../city-card';
-import { Favorites } from '../favorites';
+import { Button, Container } from '@material-ui/core';
 
 import { Form } from '../form';
+import { state } from '../../store';
+import { Weather } from '../../types';
+import { CityCard } from '../city-card';
+import { Favorites } from '../favorites';
 
 import './main.css';
 
@@ -33,20 +32,23 @@ export const Main = () => {
     [favorites, data]
   );
 
-  const mappedData =
-    typeof data?.timezone === 'string'
-      ? {
-          name: data.timezone,
-          weather: [data.current.weather[0]],
-          main: { temp: data.current.temp, pressure: data.current.pressure, humidity: data.current.humidity },
-          wind: { speed: data.current.wind_speed },
-          sys: {
-            sunrise: data.current.sunrise,
-            sunset: data.current.sunset,
-          },
-          id: data.current.weather[0].id,
-        }
-      : data;
+  const mappedData = useMemo(
+    () =>
+      typeof data?.timezone === 'string'
+        ? {
+            name: data.timezone,
+            weather: [data.current.weather[0]],
+            main: { temp: data.current.temp, pressure: data.current.pressure, humidity: data.current.humidity },
+            wind: { speed: data.current.wind_speed },
+            sys: {
+              sunrise: data.current.sunrise,
+              sunset: data.current.sunset,
+            },
+            id: data.current.weather[0].id,
+          }
+        : data,
+    [data]
+  );
 
   return (
     <Container>

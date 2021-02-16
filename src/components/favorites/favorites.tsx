@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { CityCard } from '../city-card';
 
 interface FavoritesProps {

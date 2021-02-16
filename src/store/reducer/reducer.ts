@@ -23,6 +23,7 @@ export const reducer: Reducer<
           fav: [...state.fav.slice(0, removeIndex), ...state.fav.slice(removeIndex + 1)],
         };
       }
+
       return state;
     }
   }

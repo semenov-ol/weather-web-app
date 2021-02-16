@@ -1,4 +1,4 @@
-import { SET_FAVORITE, SET_FOUND_DATA, REMOVE_FAVORITE } from './constatnt';
+import { SET_FAVORITE, SET_FOUND_DATA, REMOVE_FAVORITE } from './constant';
 
 export const setFoundData = (value: string) => {
   return {
